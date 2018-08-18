@@ -98,7 +98,7 @@ $edit_script = true;
 
     $(document).on('click', '.update', function(e) {
         e.preventDefault();
-        var user_id = $(this).attr('id');
+        var user_id = $(this).attr('ids');
         $.ajax({
             url: "<?php echo URL_ROOT . 'admin/ajax/fetch_user.php' ?>",
             method: "POST",
