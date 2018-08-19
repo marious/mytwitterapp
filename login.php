@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/includes/setup.php';
 ?>
-<!doctype html>
+<!doctype htmlllllllllllllllll>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
