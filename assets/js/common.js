@@ -331,23 +331,23 @@ if ($('#twitter-search').length) {
             $('.Typeahead-spinner').hide();
         });
 }
-
-if ($('#replay-check').length) {
-    $('.replay-container :input').prop('disabled', true);
-    $('#replay-check').click(function() {
-       $('.replay-container').toggleClass('bg-disabled');
-       if ($('#replay-check').is(':checked')) {
-           $('.replay-container :input').prop('disabled', false);
-       }
-    });
-}
-
-if ($('#retweet-check').length) {
-    $('.retweet-container :input').prop('disabled', true);
-    $('#retweet-check').click(function() {
-        $('.retweet-container').toggleClass('bg-disabled');
-        if ($('#retweet-check').is(':checked')) {
-            $('.retweet-container :input').prop('disabled', false);
-        }
-    });
-}
+//
+// if ($('#replay-check').length) {
+//     $('.replay-container :input').prop('disabled', true);
+//     $('#replay-check').click(function() {
+//        $('.replay-container').toggleClass('bg-disabled');
+//        if ($('#replay-check').is(':checked')) {
+//            $('.replay-container :input').prop('disabled', false);
+//        }
+//     });
+// }
+//
+// if ($('#retweet-check').length) {
+//     $('.retweet-container :input').prop('disabled', true);
+//     $('#retweet-check').click(function() {
+//         $('.retweet-container').toggleClass('bg-disabled');
+//         if ($('#retweet-check').is(':checked')) {
+//             $('.retweet-container :input').prop('disabled', false);
+//         }
+//     });
+// }
