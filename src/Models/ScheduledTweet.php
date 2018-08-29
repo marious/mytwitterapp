@@ -23,13 +23,14 @@ class ScheduledTweet extends AbstractModel
 
     public function update($data = [])
     {
-        $query = "UPDATE {$this->table} SET tweet_content = :tweet_content, 
+        $query = "UPDATE {$this->table} SET tweet_content = :tweet_content, owner_id = :owner_id,
                  tweet_media = :tweet_media, time_to_post = :time_to_post
                  WHERE id =:tweet_id";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':tweet_content', $data['tweet_content']);
         $stmt->bindValue(':tweet_media', $data['tweet_media']);
         $stmt->bindValue(':time_to_post', $data['time_to_post']);
+        $stmt->bindValue(':owner_id', $data['owner_id']);
         $stmt->bindValue(':tweet_id', $data['tweet_id']);
         return $stmt->execute();
     }
