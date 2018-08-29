@@ -9,7 +9,7 @@ if ($login_user) {
     $_SESSION['regular_user_id'] = $login_user['id'];
     $_SESSION['regular_username'] = $login_user['username'];
     $_SESSION['regular_user_twitter_id'] = $login_user['twitter_id'];
-    header('Location: index.php');
+    header('Location: ' . URL_ROOT . '/admin');
     exit;
 }
 

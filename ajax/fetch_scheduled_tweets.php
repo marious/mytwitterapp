@@ -6,7 +6,7 @@ $column = array("scheduled_tweets.id", "scheduled_tweets.owner_id", "scheduled_t
 
 $query = '';
 $output = '';
-$query = "SELECT * FROM scheduled_tweets WHERE owner_id = :owner_id ";
+$query = "SELECT * FROM scheduled_tweets ";
 
 if (isset($_POST['search']['value']) && !empty($_POST['search']['value'])) {
     $query .= ' AND tweet_content LIKE :tweet_content';
@@ -21,7 +21,7 @@ if ($_POST['length'] != -1) {
 }
 
 $stmt = $db->prepare($query);
-$stmt->bindValue('owner_id', $_SESSION['user_id']);
+//$stmt->bindValue('owner_id', $_SESSION['user_id']);
 if (isset($_POST['search']['value']) && !empty($_POST['search']['value']))
 {
     $stmt->bindValue(':tweet_content', '%' . $_POST['search']['value'] . '%');

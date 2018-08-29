@@ -3,11 +3,11 @@ use Abraham\TwitterOAuth\TwitterOAuth;
 require __DIR__ . '/includes/setup.php';
 
 //session_destroy();exit;
+unset($_SESSION['access_token']);
 
 // get the consumer key and consumer secret
 $settings = new \MyApp\Models\Setting();
 $twitterKeys = $settings->get('my_twitter_app');
-
 
 if (!isset($_SESSION['access_token'])) {
     $connection = new TwitterOAuth($twitterKeys['consumer_key'], $twitterKeys['consumer_secret']);

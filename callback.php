@@ -20,6 +20,15 @@ if (isset($_REQUEST['oauth_verifier'], $_REQUEST['oauth_token'])) {
     $connection = new TwitterOAuth($twitterKeys['consumer_key'], $twitterKeys['consumer_secret'], $access_token['oauth_token'], $access_token['oauth_token_secret']);
     $user = $connection->get("account/verify_credentials");
 
+    // check if user already exist
+    $tweets = new \MyApp\Controllers\Tweets();
+    if ($tweets->check_user_exists($user->id_str) == true) {
+        $_SESSION['error'] = 'This user already exists';
+        header('Location: ' . URL_ROOT . 'admin/index.php');
+        exit;
+    }
+
+
 
     $data = [];
     $data['id']                     = $user->id_str;
@@ -54,6 +63,8 @@ if (isset($_REQUEST['oauth_verifier'], $_REQUEST['oauth_token'])) {
     }
 
     // redirect user back to index page
-    header('Location: ./');
+    $_SESSION['success'] = 'New User added Successfully';
+    header('Location: ' . URL_ROOT . 'admin/index.php');
+    exit;
 
 }

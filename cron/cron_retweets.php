@@ -44,7 +44,6 @@ if ($last_status_id == $retweet_users['last_status_id']) {
 $task_run_time = unserialize($task['task_time']);
 $current_time = strtotime(date("g:i A"));
 
-
 if (strtotime($task_run_time['start_time_1']) <= $current_time && strtotime($task_run_time['end_time_1']) > $current_time) {
     make_retweet($retweet_users);
 }

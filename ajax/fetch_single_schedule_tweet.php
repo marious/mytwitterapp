@@ -11,7 +11,7 @@ if (isset($_POST['tweet_id'])) {
     $output['time_to_post'] = $row['time_to_post'];
     $output['tweet_content'] = $row['tweet_content'];
     $output['tweet_media'] = $row['tweet_media'];
-    $output['owner_id'] = $row['owner_id'];
+    $output['owner_id'] = json_encode(unserialize($row['owner_id']));
     $output['id'] = $row['id'];
     echo json_encode($output);
 }
