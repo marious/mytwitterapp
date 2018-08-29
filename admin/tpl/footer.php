@@ -25,6 +25,14 @@
         });
     });
     <?php endif; ?>
+    <?php if (isset($assets) && isset($assets['custom_script_date']) && ($assets['custom_script_date']) == true): ?>
+    $(function () {
+        $('.date-time').datetimepicker({
+            format: 'DD-MM-YYYY h:mm a',
+            sideBySide: true
+        });
+    });
+    <?php endif; ?>
 </script>
 <script src="<?php echo URL_ROOT . 'assets/js/common.js'; ?>"></script>
 

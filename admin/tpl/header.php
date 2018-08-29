@@ -301,6 +301,9 @@ if (!isset($_SESSION['logged_user']) || $_SESSION['logged_user'] == false)
             padding: 10px;
         }
     </style>
+    <script>
+        var url_root = "<?php  echo URL_ROOT; ?>";
+    </script>
 </head>
 <body>
 
@@ -322,8 +325,10 @@ if (!isset($_SESSION['logged_user']) || $_SESSION['logged_user'] == false)
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li><a href="<?= URL_ROOT . 'admin/index.php'?>">Accounts</a></li>
-                    <li><a href="<?= URL_ROOT . 'admin/tasks/all_tasks.php' ?>">All Tasks <span class="sr-only">(current)</span></a></li>
-                    <li><a href="<?= URL_ROOT . 'admin/tasks/new_task.php'?>">New Task</a></li>
+                    <li><a href="<?= URL_ROOT . 'admin/tasks/all_tasks.php?task=retweet' ?>">Retweet &amp; Favorite <span class="sr-only">(current)</span></a></li>
+                    <li><a href="<?= URL_ROOT . 'admin/tasks/all_tasks.php?task=replay' ?>">Replay</a></li>
+                    <li><a href="<?= URL_ROOT . 'admin/schedule_tweets.php'?>">Schedule Tweets</a></li>
+                    <li><a href="<?= URL_ROOT . 'admin/periodic_tweets.php'?>">Periodic Tweets</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

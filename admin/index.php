@@ -7,7 +7,25 @@ $users = $userModel->getAll();
 ?>
 
 <div class="col-md-12">
+    <a href="<?php echo URL_ROOT . 'twitter_login.php'; ?>" class="btn btn-primary">Add New Twitter Account</a>
     <h2>Accounts</h2>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger alert-dismissable">
+            <button name="button" class="close" data-ddismiss="alert" aria-label="close"><apan aria-hidden="true">x</apan></button>
+            <?php echo $_SESSION['error']; ?>
+        </div>
+
+        <?php unset($_SESSION['error']);  endif; ?>
+
+    <?php if (isset($_SESSION['success'])): ?>
+        <div class="alert alert-success alert-dismissable">
+            <button name="button" class="close" data-ddismiss="alert" aria-label="close"><apan aria-hidden="true">x</apan></button>
+            <?php echo $_SESSION['success']; ?>
+        </div>
+
+        <?php unset($_SESSION['success']);  endif; ?>
+
+
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
