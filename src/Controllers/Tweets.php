@@ -168,7 +168,7 @@ class Tweets extends AbstractController
         }
 
         $data = [];
-        $data['owner_id'] = $_SESSION['user_id'];
+        $data['owner_id'] = serialize($this->setData('owner_id'));
         $data['tweet_content'] = $this->setData('tweet_content', true);
         $data['time_to_post'] = $this->setData('time_to_post');
         if (isset($_POST['tweet_media'])) {
@@ -375,11 +375,12 @@ class Tweets extends AbstractController
 
     public function create_task($data)
     {
-        $query = "INSERT INTO tasks (task_name, target_twitter_id, task_time) VALUES (:task_name, :target_twitter_id, :task_time)";
+        $query = "INSERT INTO tasks (task_name, target_twitter_id, task_time, task_type) VALUES (:task_name, :target_twitter_id, :task_time, :task_type)";
         $stmt = $this->db->prepare($query);
         $stmt->bindValue(':task_name', $data['task_name']);
         $stmt->bindValue(':target_twitter_id', $data['target_twitter_id']);
         $stmt->bindValue(':task_time', $data['task_time']);
+        $stmt->bindValue(':task_type', $data['task_type']);
         $stmt->execute();
         return $this->db->lastInsertId();
     }
@@ -398,9 +399,14 @@ class Tweets extends AbstractController
     }
 
 
-    public function get_all_tasks()
+    public function get_all_tasks($condition = false)
     {
-        $query = "SELECT * FROM tasks";
+        $query = "SELECT * FROM tasks ";
+        if ($condition) {
+            $cond = array_keys($condition)[0];
+            $cond_val = array_values($condition)[0];
+            $query .= " WHERE {$cond} = \"{$cond_val}\" ORDER BY created_at DESC";
+        }
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
@@ -537,5 +543,19 @@ class Tweets extends AbstractController
             $replayes[] = $row['replay_message'];
         }
         return implode(', ', $replayes);
+    }
+
+
+    public function check_user_exists($id_str)
+    {
+        $query = "SELECT * FROM users WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(':id', $id_str);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($row && count($row)) {
+            return true;
+        }
+        return false;
     }
 }
