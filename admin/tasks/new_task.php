@@ -48,14 +48,20 @@ if (isset($_POST['replay_task'])) {
 
 
     $serialize_owner_id = serialize($owners_id);
-    $task_id = $twitterApp->create_task(['task_name' => $task_name, 'target_twitter_id' => $serialize_owner_id, 'task_time' => $serialize_task_time]);
+    $task_id = $twitterApp->create_task(['task_name' => $task_name, 'target_twitter_id' => $serialize_owner_id, 'task_time' => $serialize_task_time,
+        'task_type' => 'replay']);
     $message = explode(',', trim($_POST['replay_message']));
 
     foreach ($owners_id as $id => $owner_id) {
-        $message_owner = $message[$id];
+        if (! isset($message[$id])) {
+            $message_owner = 'أفضل استقدام من مكتب السلام للاستقدام';
+        } else {
+            $message_owner = $message[$id];
+        }
         $twitterApp->makeReplayUser($message_owner, $owner_id, $task_id);
 
     }
+    header('Location: ' . URL_ROOT . 'admin/tasks/all_tasks.php?task=replay');
 }
 
 if (isset($_POST['add_retweet_task']))
@@ -89,19 +95,21 @@ if (isset($_POST['add_retweet_task']))
 
     $serialize_task_time = serialize($task_run_array);
     $serialize_owner_id = serialize($owners_id);
-    $task_id = $twitterApp->create_task(['task_name' => $task_name, 'target_twitter_id' => $serialize_owner_id, 'task_time' => $serialize_task_time]);
+    $task_id = $twitterApp->create_task(['task_name' => $task_name, 'target_twitter_id' => $serialize_owner_id, 'task_time' => $serialize_task_time,
+        'task_type' => 'retweet']);
 
     foreach ($owners_id as $id => $owner_id) {
         $twitterApp->makeRetweetFavuser('insert', $owner_id, $task_id);
     }
 
-    header('Location: ' . URL_ROOT . 'admin/tasks/all_tasks.php');
+    header('Location: ' . URL_ROOT . 'admin/tasks/all_tasks.php?task=retweet');
 
 }
 ?>
 
 <div class="col-md-12">
-    <h1 class="page-header"><input type="checkbox" id="replay-check"> Replay Task</h1>
+    <?php if (isset($_GET['task']) && $_GET['task'] == 'replay'): ?>
+    <h1 class="page-header">Replay Task</h1>
     <div class="replay-container bg-disabled">
         <form action="" class="form-horizontal" method="post" id="twitter-search">
             <!--                -->
@@ -123,7 +131,7 @@ if (isset($_POST['add_retweet_task']))
             <div class="form-group">
                 <label for="replay_message" class="control-label col-sm-3">The Replay You Want to Add</label>
                 <div class="col-sm-9">
-                    <textarea name="replay_message" id=""  class="form-control"></textarea>
+                    <textarea name="replay_message" id=""  class="form-control" required></textarea>
                 </div>
             </div>
 
@@ -211,9 +219,11 @@ if (isset($_POST['add_retweet_task']))
 
         </form>
     </div>
+    <?php  endif; ?>
 
-    <hr>
-    <h1 class="page-header"><input type="checkbox" id="retweet-check"> Retwee Favorite Task Task</h1>
+
+    <?php if (isset($_GET['task']) && $_GET['task'] == 'retweet'): ?>
+    <h1 class="page-header">Retweet Favorite Task Task</h1>
     <div class="retweet-container bg-disabled">
         <form action="" class="form-horizontal" method="post" id="twitter-search">
             <!--                -->
@@ -322,6 +332,7 @@ if (isset($_POST['add_retweet_task']))
         </form>
     </div>
 </div>
+<?php endif; ?>
 
 <script id="result-template" type="text/x-handlebars-template">
     <div class="ProfileCard u-cf">

@@ -46,8 +46,11 @@ if ($task_id)
     $task_title = 'Edit Task';
     if (isset($retweet_replay_task['replay_message'])) {
         $task_title = 'Edit Replay Task';
+        $redirect = URL_ROOT . 'admin/tasks/all_tasks.php?task=replay';
     } else {
         $task_title = 'Edit Retweet Fav Task';
+        $redirect = URL_ROOT . 'admin/tasks/all_tasks.php?task=retweet';
+
     }
 
 
@@ -131,7 +134,7 @@ if ($task_id)
             }
         }
 
-        header('Location: ' . URL_ROOT . 'admin/tasks/all_tasks.php');
+        header('Location: ' . $redirect);
         exit;
 
     }

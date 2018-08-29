@@ -1,13 +1,14 @@
 <?php
 include __DIR__ . '/../../includes/setup.php';
 include __DIR__ . '/../tpl/header.php';
-
+$task_type = trim($_GET['task']);
 $twitterApp = new \MyApp\Controllers\Tweets();
-$all_tasks = $twitterApp->get_all_tasks();
+$all_tasks = $twitterApp->get_all_tasks(['task_type' => $task_type]);
 ?>
 
 <div class="col-md-12">
-    <h1 class="page-header">All Tasks</h1>
+    <a href="<?= URL_ROOT . 'admin/tasks/new_task.php?task=' . $_GET['task']; ?>" class="btn btn-primary">New Task</a>
+    <h1 class="page-header"><?= $task_type ?> Tasks</h1>
     <?php if (isset($_SESSION['task_deleted'])): ?>
     <div class="alert alert-success alert-dismissable">
         <button name="button" class="close" data-ddismiss="alert" aria-label="close"><apan aria-hidden="true">x</apan></button>
